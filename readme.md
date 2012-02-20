@@ -3,37 +3,41 @@
 
 __Idee__
 
-Das Programm fmp100.exe verbindet sich mit dem über USB verbunden Schichtdickenmessgerät Fischer FMP100 und wandelt dessen Daten in eine XML-Datei um, die von einer aufgerufenen Baan-Session eingelesen und verarbeitet wird.
-## Start des
+Das Programm fmp100.exe verbindet sich via USB mit dem Schichtdickenmessgerät Fischer FMP100 und wandelt dessen Daten in eine XML-Datei um, die von einer aufgerufenen Baan-Session eingelesen und verarbeitet wird.
+## Nutzung des Programms
 
+Ein Beispielaufruf des Programms kann wie folgt aussehen:
 
+	fmp100.exe --start_time 123
 
+Dieser Aufruf erzeugt im Ordner der fmp100.exe die Dateien "data/123/123" und "data/123/messwerte.xml"
 
+* Die Datei 123 beinhaltet die vom COM-Port gesendeten Daten des Messgeraetes
+* Die XML-Datei beinhaltet eine aufbereitete Version der COM-Port-Daten
 
 
 ## Kommandozeilenargumente
-	
+
+Das Programm fmp100.exe kann mit folgenden Startparametern ausgefuehrt werden:
+
 * [--help, --h] Listet alle zulässigen Kommandozeilenargumente und ihre Funktionsbeschreibung ein
-* [--start_time, --s] Angabe der Startzeit des Programms als Timestamp. Dieser wird von der Baan-Session erzeugt und an das aufrufende Programm übergeben.
+* [--start_time, --s] Angabe der Startzeit des Programms als Timestamp. Dieser wird von der Baan-Session erzeugt und an das aufrufende Programm übergeben. Dieser Parameter ist erforderlich.
 * [--console, --c] Startet des Programm im interaktiven Konsolenmodus
-
-
-
 
 
 ## Interaktiver Konsolenmodus
 
 Durch den Start des Programms im interaktiven Konsolenmodus kann über spezifische COM-Port-Befehle eine direkte Kommunikation mit dem Fischer FMP100 hergestellt werden.
-Die Rückantwort des Gerätes wird direkt in der Konsole ausgegeben.
+Die Rueckantwort des Gerätes wird direkt in der Konsole ausgegeben.
 
-Momentan stehen folgende Befehle zur Verfügung:
+Momentan stehen folgende Befehle zur Verfuegung:
 
-* [VV] Gibt den Namen des Gerätes und die verwendete Firmwareversion aus.
+* [VV] Gibt den Namen des Geraetes und die verwendete Firmwareversion aus.
 * [NAMHEX]
-* [PE] Angabe des für die Messapplikation konfigurierten Gruppenseparators. Folgende Gruppenseparatoren können über die COM-Port-Einstellungen des Gerätes eingestellt werden: GS (Hex code 0x1d), "*", ";", "#", ":" und ","
+* [PE] Angabe des für die Messapplikation konfigurierten Gruppenseparatoren. Folgende Gruppenseparatoren können über die COM-Port-Einstellungen des Geraetes eingestellt werden: GS (Hex code 0x1d), "*", ";", "#", ":" und ","
 * [SAM] Gibt alle Daten der aktuellen Messapplikation entsprechend der COM-Port-Einstellungen und der Blockergebnisvorlage aus
 * [DAT0-DATxxx] Gibt Datum und Uhrzeit der Erstellung eines Messblocks xxx aus. Der erste Block beginnt entsprechend mit DAT0
-* unbekannte bzw. falsche Steuerbefehle liefern als Antwort ein Fragezeichen zurück [?]
+* Unbekannte bzw. falsche Steuerbefehle liefern als Antwort ein Fragezeichen zurück [?]
 * Die Bedeutung fOlgende Steuerbefehle ist noch nicht bekannt: SL, LSL, USL
 
 
@@ -49,10 +53,9 @@ Das Programm fmp100 erzeugt aus der aktuell gewählten Messapplikation eine XML-D
 3. Das Element "value" beinhaltet den Zahlenwert des Messwertes
 
 
-Anmerkung: Auftragsnummer und Kommentar können jeweils leer sein.
+Anmerkung: Auftragsnummer und Kommentar koennen sind nicht zwingend erforderlich.
 
-
-Die folgende Datei zeigt eine Beispielanwendung  "Farbschichtmessung" mit 3 Messblöcken:
+Die folgende Datei zeigt eine Beispielanwendung  "Farbschichtmessung" mit 3 Messbloecken:
 
 	<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 	<application name="Farbschichtmessung" max="2000" min="455" unit="um">
