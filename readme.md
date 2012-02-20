@@ -1,9 +1,10 @@
 # __Programm zur Ansteuerung des Fischer FMP100 in einer Baan-Session (Infor ERP)__
 
 
-__Idee__
+## Idee
 
-Das Programm fmp100.exe verbindet sich via USB mit dem Schichtdickenmessgeraet Fischer FMP100 und wandelt dessen Daten in eine XML-Datei um, die von einer aufgerufenen Baan-Session eingelesen und verarbeitet wird.
+Das Programm fmp100.exe verbindet sich via USB mit dem Schichtdickenmessgeraet Fischer FMP100 und wandelt dessen Daten in eine XML-Datei um, die von einer aufgerufenen Baan-Session eingelesen und verarbeitet wird. Durch Verwendung der Boost-Bibliothek (u.a. Asio, Regex, Thread, Filesystem) ist der Programmcode weitesgehend systemunabhängig.
+
 ## Nutzung des Programms
 
 Ein Beispielaufruf des Programms kann wie folgt aussehen:
@@ -13,7 +14,15 @@ Ein Beispielaufruf des Programms kann wie folgt aussehen:
 Dieser Aufruf erzeugt im Ordner der fmp100.exe die Dateien "data/123/123" und "data/123/messwerte.xml"
 
 * Die Datei 123 beinhaltet die vom COM-Port gesendeten Daten des Messgeraetes
-* Die XML-Datei beinhaltet eine aufbereitete Version der COM-Port-Daten
+* Die XML-Datei beinhaltet eine aufbereitete XML-Version der COM-Port-Daten
+
+
+
+## Anforderungen
+
+* Fischer FMP100 USB Treiber (wird auf Mini CD mitgeliefert)
+* Windows XP, Windows Vista oder Windows 7
+* Bearbeitung der Projektdatei mit Codeblocks (IDE) und Kompilierung mit C++ Boost
 
 
 ## Kommandozeilenargumente
@@ -33,8 +42,8 @@ Die Rueckantwort des Geraetes wird direkt in der Konsole ausgegeben.
 Momentan stehen folgende Befehle zur Verfuegung:
 
 * [VV] Gibt den Namen des Geraetes und die verwendete Firmwareversion aus.
-* [NAMHEX]
-* [PE] Ausgabe des für die Messapplikation konfigurierten Gruppenseparators. Folgende Gruppenseparatoren koennen über die COM-Port-Einstellungen des Geraetes eingestellt werden: GS (Hex code 0x1d), "*", ";", "#", ":" und ","
+* [NAMHEX] Angabe des Geraetenamens in Hexadezimalschreibweise
+* [PE] Ausgabe des für die Messapplikation konfigurierten Gruppenseparators. Folgende Gruppenseparatoren koennen ueber die COM-Port-Einstellungen des Geraetes eingestellt werden: GS (Hex code 0x1d), "*", ";", "#", ":" und ","
 * [SAM] Gibt alle Daten der aktuellen Messapplikation entsprechend der COM-Port-Einstellungen und der Blockergebnisvorlage aus
 * [DAT0-DATxxx] Gibt Datum und Uhrzeit der Erstellung eines Messblocks xxx aus. Der erste Block beginnt entsprechend mit DAT0
 * Unbekannte bzw. falsche Steuerbefehle liefern als Antwort ein Fragezeichen zurueck [?]
@@ -46,14 +55,14 @@ Der interaktive Konsolenmodus kann durch die Eingabe des Steuerbefehls [exit] be
 
 ## XML-Struktur
 
-Das Programm fmp100 erzeugt aus der aktuell gewaehlten Messapplikation eine XML-Datei mit den Elementen "application", "block" und "value".
+Das Programm fmp100.exe erzeugt aus der aktuell gewaehlten Messapplikation eine XML-Datei mit den Elementen "application", "block" und "value".
 
 1. Das Element "application" ist das Wurzelelement der XML-Datei und beinhaltet alle relevanten Daten zur Messapplikation (Name der Messanwendung, obere und untere Toleranzgrenze sowie die verwendete Messeinheit)
 2. Das Element "block" beinhaltet alle Daten fuer die Beschreibung eines Messblockes (u.a. Auftragsnummer, Blockkommentar, Anzahl der Messwerte und Zeitpunkt der Erstellung zerlegt in Tag, Monat, Jahr, Stunden und Minuten)
 3. Das Element "value" beinhaltet den Zahlenwert des Messwertes
 
 
-Anmerkung: Auftragsnummer und Kommentar koennen sind nicht zwingend erforderlich.
+Anmerkung: Auftragsnummer und Kommentar sind nicht zwingend erforderlich.
 
 Die folgende Datei zeigt eine Beispielanwendung  "Farbschichtmessung" mit 3 Messbloecken:
 

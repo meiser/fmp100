@@ -32,7 +32,17 @@ using namespace std;
 
 fs::path timestamp_dir;
 fs::path directory_name;
+
+
+string fmp_com_port = "COM1";
+string fmp_baudrate = "9600";
+
+
 bool console_mode=false;
+
+
+
+
 // Callback , speichert Daten lokal zwischen
 void received(const char *data, unsigned int len)
 {
@@ -111,16 +121,39 @@ int console()
 }
 
 
+void load_xml_settings(const char* pFilename)
+{
+    TiXmlDocument doc(pFilename);
+    if (!doc.LoadFile())
+    {
+        cout << "keine XML-Datei angelegt. Verwende Standardsettings" << endl;
+    }
+    else
+    {
+        TiXmlElement *sRoot, *sPort, *pBaudrate;
+        sRoot = doc.FirstChildElement( "settings" );
+
+        if (sRoot)
+        {
+
+        }
+    }
+}
+
 int main(int ac, char* av[])
 {
     try
     {
+        load_xml_settings("settings.xml");
+
         // Declare the supported options.
         po::options_description desc("Allowed options");
         desc.add_options()
         ("help,h", "produce help message")
         ("start_time,s", po::value<string>()->implicit_value(""), "start time")
-        ("console,c", "interactive COM Port mode")
+        ("console,c", po::value<string>()->implicit_value(""), "interactive COM Port mode")
+        ("input,i", po::value<string>()->implicit_value("COM3"), "used com port connection. e.g. COM1 or /dev/ttyS0")
+        ("baudrate,b", po::value<string>()->implicit_value("9600"), "baudrate for com port connection")
         ;
         po::variables_map vm;
         po::store(po::parse_command_line(ac, av, desc), vm);
@@ -138,9 +171,32 @@ int main(int ac, char* av[])
             return 200;
         }
 
-        if (vm.count("start_time"))
+
+        if (vm.count("input"))
+        {
+            fmp_com_port = vm["input"].as<string>();
+        }
+        else
         {
 
+            cout << "COM Port aus xml holen" << endl;
+
+        }
+
+        if (vm.count("baudrate"))
+        {
+            fmp_baudrate = vm["baudrate"].as<string>();
+        }
+        else
+        {
+            cout << "Baudrate aus xml holen" << endl;
+        }
+
+        cout << "Starting with " << fmp_com_port << " on " << fmp_baudrate << endl;
+
+
+        if (vm.count("start_time"))
+        {
             fs::path programm_root;
             fs::path data_path;
             programm_root = boost::filesystem::system_complete(av[0]).parent_path();
