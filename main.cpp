@@ -147,7 +147,7 @@ int main(int ac, char* av[])
             directory_name = vm["start_time"].as<string>();
             data_path = "data";
             timestamp_dir = programm_root / data_path / directory_name;
-            fs::create_directory(timestamp_dir);
+            fs::create_directories(timestamp_dir);
             fs::fstream textfile;
             textfile.open(timestamp_dir / directory_name, ios_base::out);
             textfile.close();
