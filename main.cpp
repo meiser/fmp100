@@ -348,7 +348,7 @@ int main(int ac, char* av[])
     }
     catch(boost::system::system_error& e)
     {
-        cout<<"Fehler: "<<e.what()<<endl;
+        cout<<"Boost System Fehler: "<<e.what()<<endl;
         return 400;
     }
     catch(boost::program_options::unknown_option& e)
