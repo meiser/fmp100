@@ -3,7 +3,7 @@
 
 __Idee__
 
-Das Programm fmp100.exe verbindet sich via USB mit dem Schichtdickenmessgerät Fischer FMP100 und wandelt dessen Daten in eine XML-Datei um, die von einer aufgerufenen Baan-Session eingelesen und verarbeitet wird.
+Das Programm fmp100.exe verbindet sich via USB mit dem Schichtdickenmessgeraet Fischer FMP100 und wandelt dessen Daten in eine XML-Datei um, die von einer aufgerufenen Baan-Session eingelesen und verarbeitet wird.
 ## Nutzung des Programms
 
 Ein Beispielaufruf des Programms kann wie folgt aussehen:
@@ -20,25 +20,25 @@ Dieser Aufruf erzeugt im Ordner der fmp100.exe die Dateien "data/123/123" und "d
 
 Das Programm fmp100.exe kann mit folgenden Startparametern ausgefuehrt werden:
 
-* [--help, --h] Listet alle zulässigen Kommandozeilenargumente und ihre Funktionsbeschreibung ein
-* [--start_time, --s] Angabe der Startzeit des Programms als Timestamp. Dieser wird von der Baan-Session erzeugt und an das aufrufende Programm übergeben. Dieser Parameter ist erforderlich.
+* [--help, --h] Listet alle zulaessigen Kommandozeilenargumente und ihre Funktionsbeschreibung ein
+* [--start_time, --s] Angabe der Startzeit des Programms als Timestamp. Dieser wird von der Baan-Session erzeugt und an das aufrufende Programm uebergeben. Dieser Parameter ist erforderlich.
 * [--console, --c] Startet des Programm im interaktiven Konsolenmodus
 
 
 ## Interaktiver Konsolenmodus
 
-Durch den Start des Programms im interaktiven Konsolenmodus kann über spezifische COM-Port-Befehle eine direkte Kommunikation mit dem Fischer FMP100 hergestellt werden.
-Die Rueckantwort des Gerätes wird direkt in der Konsole ausgegeben.
+Durch den Start des Programms im interaktiven Konsolenmodus kann ueber spezifische COM-Port-Befehle eine direkte Kommunikation mit dem Fischer FMP100 hergestellt werden.
+Die Rueckantwort des Geraetes wird direkt in der Konsole ausgegeben.
 
 Momentan stehen folgende Befehle zur Verfuegung:
 
 * [VV] Gibt den Namen des Geraetes und die verwendete Firmwareversion aus.
 * [NAMHEX]
-* [PE] Angabe des für die Messapplikation konfigurierten Gruppenseparatoren. Folgende Gruppenseparatoren können über die COM-Port-Einstellungen des Geraetes eingestellt werden: GS (Hex code 0x1d), "*", ";", "#", ":" und ","
+* [PE] Ausgabe des für die Messapplikation konfigurierten Gruppenseparators. Folgende Gruppenseparatoren koennen über die COM-Port-Einstellungen des Geraetes eingestellt werden: GS (Hex code 0x1d), "*", ";", "#", ":" und ","
 * [SAM] Gibt alle Daten der aktuellen Messapplikation entsprechend der COM-Port-Einstellungen und der Blockergebnisvorlage aus
 * [DAT0-DATxxx] Gibt Datum und Uhrzeit der Erstellung eines Messblocks xxx aus. Der erste Block beginnt entsprechend mit DAT0
-* Unbekannte bzw. falsche Steuerbefehle liefern als Antwort ein Fragezeichen zurück [?]
-* Die Bedeutung fOlgende Steuerbefehle ist noch nicht bekannt: SL, LSL, USL
+* Unbekannte bzw. falsche Steuerbefehle liefern als Antwort ein Fragezeichen zurueck [?]
+* Die Bedeutung folgender Steuerbefehle ist noch nicht bekannt: SL, LSL, USL
 
 
 Der interaktive Konsolenmodus kann durch die Eingabe des Steuerbefehls [exit] beendet werden.
@@ -46,10 +46,10 @@ Der interaktive Konsolenmodus kann durch die Eingabe des Steuerbefehls [exit] be
 
 ## XML-Struktur
 
-Das Programm fmp100 erzeugt aus der aktuell gewählten Messapplikation eine XML-Datei mit den Elementen "application", "block" und "value".
+Das Programm fmp100 erzeugt aus der aktuell gewaehlten Messapplikation eine XML-Datei mit den Elementen "application", "block" und "value".
 
 1. Das Element "application" ist das Wurzelelement der XML-Datei und beinhaltet alle relevanten Daten zur Messapplikation (Name der Messanwendung, obere und untere Toleranzgrenze sowie die verwendete Messeinheit)
-2. Das Element "block" beinhaltet alle Daten für die Beschreibung eines Messblockes (u.a. Auftragsnummer, Blockkommentar, Anzahl der Messwerte und Zeitpunkt der Erstellung zerlegt in Tag, Monat, Jahr, Stunden und Minuten)
+2. Das Element "block" beinhaltet alle Daten fuer die Beschreibung eines Messblockes (u.a. Auftragsnummer, Blockkommentar, Anzahl der Messwerte und Zeitpunkt der Erstellung zerlegt in Tag, Monat, Jahr, Stunden und Minuten)
 3. Das Element "value" beinhaltet den Zahlenwert des Messwertes
 
 
