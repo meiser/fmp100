@@ -29,11 +29,12 @@ Dieser Aufruf erzeugt im Ordner der `fmp100.exe` die Dateien `data/123/123` und 
 
 Das Programm `fmp100.exe` kann mit folgenden Startparametern ausgefuehrt werden:
 
-* [--help, --h] Listet alle zulaessigen Kommandozeilenargumente und ihre Funktionsbeschreibung ein
-* [--start_time, --s] Angabe der Startzeit des Programms als Timestamp. Dieser wird von der Baan-Session erzeugt und an das aufrufende Programm uebergeben. Dieser Parameter ist erforderlich.
-* [--console, --c] Startet des Programm im interaktiven Konsolenmodus
-* [--input, --i] Angabe des COM-Ports z.B. --i COM1 oder --i /dev/ttyS0, Standard ist COM1
-* [--baudrate, --b] Angabe der Uebertragungsgeschwindigkeit des COM-Ports, Standard ist 9600
+* `--help, --h` Listet alle zulaessigen Kommandozeilenargumente und ihre Funktionsbeschreibung ein
+* `--start_time, --s` Angabe der Startzeit des Programms als Timestamp. Dieser wird von der Baan-Session erzeugt und an das aufrufende Programm uebergeben. Dieser Parameter ist erforderlich.
+* `--console, --c` Startet des Programm im interaktiven Konsolenmodus
+* `--input, --i` Angabe des COM-Ports z.B. --i COM1 oder --i /dev/ttyS0, Standard ist COM1
+* `--baudrate, --b` Angabe der Uebertragungsgeschwindigkeit des COM-Ports, Standard ist 9600
+* `--file, --f` Angabe des Pfades zu einer Konfigurationsdatei
 
 ## Interaktiver Konsolenmodus
 
@@ -56,7 +57,7 @@ Momentan stehen folgende Befehle zur Verfuegung:
 ##Konfigurationsdatei
 
 Wird `fmp100.exe` ohne weitere Kommandozeilenargumente gestartet verwendet es standardmaeﬂig COM-Port 1 (`COM1`) und eine Baudrate von `9600`.
-Diese Standardwerte koennen jedoch an 2 Stellen ueberschrieben werden:
+Diese Standardwerte koennen jedoch auf 3 verschiedene Arten ueberschrieben werden:
 
 
 1. Erstellung einer zusaetzlichen Konfigurationsdatei
@@ -70,10 +71,17 @@ Die Konfigurationsdatei muss den Namen `config` haben und sich im gleichen Ornde
 Die Reihenfolge von Port- und Baudratenangabe kann beliebig vertauscht werden.
 
 2. Verwendung der Kommandozeilenargumente `--i` und `--b`
-Mit Hilfe der Kommandozeilenargumente `--i` und `--b` koennen die Standardwerte des Programms veraendert werden (siehe Abschnitt Kommandozeilenargumente).
 
-Wenn keine Kommandozeilenargumente angegeben werden bezieht das Programm die Verbindungsdaten aus der Konfigurationsdatei.
-Sollte diese Datei nicht vorliegen, verwendet das Programm die internen Standardwerte (`COM1` mit `9600`).
+Mit Hilfe der Kommandozeilenargumente `--i` und `--b` koennen die Verbindungsparameter des Programms direkt veraendert werden (siehe Abschnitt Kommandozeilenargumente).
+
+3. Angabe eines Pfades zur Konfigurationsdatei
+
+Mit Hilfe des Kommandozeilenarguments `--f` kann ein Pfad zu einer Konfigurationsdatei angegeben werden (siehe Abschnitt Kommandozeilenargumente).
+
+
+
+Wenn keine Kommandozeilenargumente angegeben werden bezieht das Programm die Verbindungsdaten aus der Konfigurationsdatei (im Hauptornder bzw. durch Angabe des Pfades der Datei mit `--f`).
+Sollte keine Konfigurationsdatei vorliegen verwendet das Programm die internen Standardwerte (`COM1` mit einer Baudrate von `9600`).
 
 ## XML-Struktur
 
