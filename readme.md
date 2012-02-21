@@ -3,7 +3,7 @@
 
 ## Idee
 
-Das Programm fmp100.exe verbindet sich via USB mit dem Schichtdickenmessgeraet Fischer FMP100 und wandelt dessen Daten in eine XML-Datei um, die von einer aufgerufenen Baan-Session eingelesen und verarbeitet wird. Durch Verwendung der Boost-Bibliothek (u.a. Asio, Regex, Thread, Filesystem) ist der Programmcode weitesgehend systemunabhängig.
+Das Programm `fmp100.exe` verbindet sich via USB mit dem Schichtdickenmessgeraet Fischer FMP100 und wandelt dessen Daten in eine XML-Datei um, die von einer aufgerufenen Baan-Session eingelesen und verarbeitet wird. Durch Verwendung der Boost-Bibliothek (u.a. Asio, Regex, Thread, Filesystem) ist der Programmcode weitesgehend systemunabhaengig.
 
 ## Nutzung des Programms
 
@@ -11,9 +11,9 @@ Ein Beispielaufruf des Programms kann wie folgt aussehen:
 
 	fmp100.exe --start_time 123
 
-Dieser Aufruf erzeugt im Ordner der fmp100.exe die Dateien "data/123/123" und "data/123/messwerte.xml"
+Dieser Aufruf erzeugt im Ordner der `fmp100.exe` die Dateien `data/123/123` und `data/123/messwerte.xml`
 
-* Die Datei 123 beinhaltet die vom COM-Port gesendeten Daten des Messgeraetes
+* Die Datei `123` beinhaltet die vom COM-Port gesendeten Daten des Messgeraetes
 * Die XML-Datei beinhaltet eine aufbereitete XML-Version der COM-Port-Daten
 
 
@@ -22,17 +22,18 @@ Dieser Aufruf erzeugt im Ordner der fmp100.exe die Dateien "data/123/123" und "d
 
 * Fischer FMP100 USB Treiber (wird auf Mini CD mitgeliefert)
 * Windows XP, Windows Vista oder Windows 7
-* Bearbeitung der Projektdatei mit Codeblocks (IDE) und Kompilierung mit C++ Boost
+* Bearbeitung der Projektdatei mit Codeblocks (IDE) und Kompilierung mit der C++ Boost Bibliothek
 
 
 ## Kommandozeilenargumente
 
-Das Programm fmp100.exe kann mit folgenden Startparametern ausgefuehrt werden:
+Das Programm `fmp100.exe` kann mit folgenden Startparametern ausgefuehrt werden:
 
 * [--help, --h] Listet alle zulaessigen Kommandozeilenargumente und ihre Funktionsbeschreibung ein
 * [--start_time, --s] Angabe der Startzeit des Programms als Timestamp. Dieser wird von der Baan-Session erzeugt und an das aufrufende Programm uebergeben. Dieser Parameter ist erforderlich.
 * [--console, --c] Startet des Programm im interaktiven Konsolenmodus
-
+* [--input, --i] Angabe des COM-Ports z.B. --i COM1 oder --i /dev/ttyS0, Standard ist COM1
+* [--baudrate, --b] Angabe der Uebertragungsgeschwindigkeit des COM-Ports, Standard ist 9600
 
 ## Interaktiver Konsolenmodus
 
@@ -41,21 +42,34 @@ Die Rueckantwort des Geraetes wird direkt in der Konsole ausgegeben.
 
 Momentan stehen folgende Befehle zur Verfuegung:
 
-* [VV] Gibt den Namen des Geraetes und die verwendete Firmwareversion aus.
+* `VV` Gibt den Namen des Geraetes und die verwendete Firmwareversion aus.
 * [NAMHEX] Angabe des Geraetenamens in Hexadezimalschreibweise
 * [PE] Ausgabe des für die Messapplikation konfigurierten Gruppenseparators. Folgende Gruppenseparatoren koennen ueber die COM-Port-Einstellungen des Geraetes eingestellt werden: GS (Hex code 0x1d), "*", ";", "#", ":" und ","
 * [SAM] Gibt alle Daten der aktuellen Messapplikation entsprechend der COM-Port-Einstellungen und der Blockergebnisvorlage aus
 * [DAT0-DATxxx] Gibt Datum und Uhrzeit der Erstellung eines Messblocks xxx aus. Der erste Block beginnt entsprechend mit DAT0
 * Unbekannte bzw. falsche Steuerbefehle liefern als Antwort ein Fragezeichen zurueck [?]
 * Die Bedeutung folgender Steuerbefehle ist noch nicht bekannt: SL, LSL, USL
+* [exit] Beendigung des Programms
 
 
-Der interaktive Konsolenmodus kann durch die Eingabe des Steuerbefehls [exit] beendet werden.
+
+##Konfigurationsdatei
+
+Wird das Programm `fmp100.exe` ohne weitere Kommandozeilenargumente gestartet wird automatisch der COM-Port 1 (COM1) und eine Baudrate von 9600 verwendet. Mit Hilfe der Kommandozeilenargumente `--i` und `--b` können diese in der Konsole verändert werden (siehe Abschnitt Kommandozeilenargumente).
+Zusaetzlich kann über eine Konfigurationsdatei der COM-Port und die Baudrate eingestellt werden.
+
+Die Konfigurationsdatei muss den Namen `config` haben und sollte folgende Struktur aufweisen:
+
+	port: COM3
+	baudrate: 115200
+
+Die Reihenfolge von Port- und Baudratenangabe kann vertauscht werden.
+Die Konfigurationsdatei muss sich im selben Ornder wie die Datei `fmp100.exe` befinden.
 
 
 ## XML-Struktur
 
-Das Programm fmp100.exe erzeugt aus der aktuell gewaehlten Messapplikation eine XML-Datei mit den Elementen "application", "block" und "value".
+Das Programm `fmp100.exe` erzeugt aus der aktuell gewaehlten Messapplikation eine XML-Datei mit den Elementen "application", "block" und "value".
 
 1. Das Element "application" ist das Wurzelelement der XML-Datei und beinhaltet alle relevanten Daten zur Messapplikation (Name der Messanwendung, obere und untere Toleranzgrenze sowie die verwendete Messeinheit)
 2. Das Element "block" beinhaltet alle Daten fuer die Beschreibung eines Messblockes (u.a. Auftragsnummer, Blockkommentar, Anzahl der Messwerte und Zeitpunkt der Erstellung zerlegt in Tag, Monat, Jahr, Stunden und Minuten)
@@ -109,3 +123,8 @@ Die folgende Datei zeigt eine Beispielanwendung  "Farbschichtmessung" mit 3 Mess
         <value>3.20199</value>
     </block>
 </application>
+
+
+## Kompilierung
+
+Das `fmp100.exe` Repository beinhaltet vorkompilierte Versionen der Anwendungen im bin-Ordner. Dort kann zwischen einer Debug und Release-Version entschieden werden.
