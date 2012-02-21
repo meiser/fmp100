@@ -7,3 +7,7 @@ bin/Release/config
 
 obj/
 fmp100.layout
+
+
+.objs/
+.objsZ/
