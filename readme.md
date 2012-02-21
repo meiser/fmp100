@@ -81,8 +81,8 @@ Mit Hilfe der Kommandozeilenargumente `--i` und `--b` koennen die Verbindungspar
 
 ### ANMERKUNGEN
 
-Wenn keine Kommandozeilenargumente `--i` oder `--b` verwendet werden bezieht das Programm die Verbindungsdaten aus der Konfigurationsdatei. Dabei hat die Konfigurationsdatei, die mit dem Kommandozeilenargument `--f` angegeben wurde Vorrang vor der Autokonfigurationsdatei im Programmordner.
-Wurde keine Konfigurationsdatei angegeben oder im Hauptordner des Programms angelegt greifen die Standardeinstellungen (`COM1` mit einer Baudrate von `9600`)
+Wenn die Kommandozeilenargumente `--i` oder `--b` nicht verwendet werden bezieht das Programm die Verbindungsdaten aus der Konfigurationsdatei. Dabei hat die Konfigurationsdatei, die mit dem Kommandozeilenargument `--f` angegeben wurde Vorrang vor der Autokonfigurationsdatei im Hauptornder des Programms.
+Existiert keine Autokonfigurationsdatei greifen die Standardeinstellungen (`COM1` mit einer Baudrate von `9600`)
 
 ## XML-Struktur
 
