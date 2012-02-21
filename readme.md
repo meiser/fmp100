@@ -53,14 +53,14 @@ Momentan stehen folgende Befehle zur Verfuegung:
 * Die Bedeutung folgender Steuerbefehle ist noch nicht bekannt: `SL`, `LSL`, `USL`
 * `exit` Beendigung des Programms
 
-##Konfigurationsdatei
+##Konfigurationsoptionen
 
-Wird `fmp100.exe` ohne weitere Kommandozeilenargumente gestartet verwendet es die Standardwerte COM-Port 1 (`COM1`) und eine Baudrate von `9600`.
-Diese Standardwerte koennen jedoch auf 3 verschiedene Arten ueberschrieben werden:
+Zur Konfiguration der COM-Port Verbindungsdaten bietet `fmp100.exe` verschiedene Moeglichkeiten:
 
-### Erstellung einer zusaetzlichen Konfigurationsdatei
 
-Die Konfigurationsdatei muss den Namen `config` haben und sich im gleichen Ordner wie die Datei `fmp100.exe` befinden.
+### Erstellung einer Autokonfigurationsdatei
+
+Die Konfigurationsdatei muss den Namen `config` haben und sich im gleichen Ordner wie die Datei `fmp100.exe` befinden. Der Aufbau der Datei sieht dabei folgende Struktur vor:
 	
 	port: COM3
 	baudrate: 115200
@@ -68,15 +68,21 @@ Die Konfigurationsdatei muss den Namen `config` haben und sich im gleichen Ordne
 Die Reihenfolge von Port- und Baudratenangabe kann beliebig vertauscht werden.
 
 
+### Verwendung der Kommandozeilenarguments `--f`
+
+Mit Hilfe des Kommandozeilenarguments `--f` kann ein individueller Pfad zu einer Konfigurationsdatei angegeben werden (siehe Abschnitt Kommandozeilenargumente).
+Die Struktur der Konfigurationsdatei enspricht dabei der Struktur der Autokonfigurationsdatei.
+
 ### Verwendung der Kommandozeilenargumente `--i` und `--b`
 
-Mit Hilfe der Kommandozeilenargumente `--i` und `--b` koennen die Verbindungsparameter des Programms direkt veraendert werden (siehe Abschnitt Kommandozeilenargumente).
+Mit Hilfe der Kommandozeilenargumente `--i` und `--b` koennen die Verbindungsparameter des Programms direkt beim Aufruf angegeben werden (siehe Abschnitt Kommandozeilenargumente).
 
-### Angabe eines Pfades zur Konfigurationsdatei
 
-Mit Hilfe des Kommandozeilenarguments `--f` kann ein Pfad zu einer Konfigurationsdatei mit einem beliebigen Dateinamen angegeben werden (siehe Abschnitt Kommandozeilenargumente).
-Wenn keine Kommandozeilenargumente angegeben werden bezieht das Programm die Verbindungsdaten aus der Konfigurationsdatei (im Hauptornder bzw. durch Angabe des Pfades der Datei mit `--f`).
-Sollte keine Konfigurationsdatei vorliegen verwendet das Programm die internen Standardwerte (`COM1` mit einer Baudrate von `9600`).
+
+### ANMERKUNGEN
+
+Wenn keine Kommandozeilenargumente `--i` oder `--b` verwendet werden bezieht das Programm die Verbindungsdaten aus der Konfigurationsdatei. Dabei hat die Konfigurationsdatei, die mit dem Kommandozeilenargument `--f` angegeben wurde Vorrang vor der Autokonfigurationsdatei im Programmordner.
+Wurde keine Konfigurationsdatei angegeben oder im Hauptordner des Programms angelegt greifen die Standardeinstellungen (`COM1` mit einer Baudrate von `9600`)
 
 ## XML-Struktur
 
