@@ -32,10 +32,12 @@ using namespace std;
 
 fs::path timestamp_dir;
 fs::path directory_name;
-
+fs::path programm_root;
+fs::path config_file_name("config");
+fs::path data_path("data");
 
 string fmp_com_port = "COM1";
-string fmp_baudrate = "9600";
+int fmp_baudrate = 9600;
 
 
 bool console_mode=false;
@@ -89,7 +91,7 @@ int console()
     try
     {
 
-        CallbackAsyncSerial serial("COM3", 9600);
+        CallbackAsyncSerial serial(fmp_com_port, fmp_baudrate);
         serial.setCallback(received_for_console);
 
         string command = "";
@@ -121,21 +123,34 @@ int console()
 }
 
 
-void load_xml_settings(const char* pFilename)
+void load_xml_settings(fs::path config_file_path)
 {
-    TiXmlDocument doc(pFilename);
-    if (!doc.LoadFile())
+    fs::ifstream inFile(config_file_path);
+    static const boost::regex com_port_regex("^port:\\s*(?<port>\\w+).*$");
+    static const boost::regex baudrate_regex("^baudrate:\\s*(?<baudrate>\\d+).*$");
+    boost::smatch result;
+    while ( inFile )
     {
-        cout << "keine XML-Datei angelegt. Verwende Standardsettings" << endl;
-    }
-    else
-    {
-        TiXmlElement *sRoot, *sPort, *pBaudrate;
-        sRoot = doc.FirstChildElement( "settings" );
-
-        if (sRoot)
+        std::string current_line;
+        std::getline( inFile, current_line );
+        if (inFile)
         {
+            if (regex_search(current_line, result, com_port_regex))
+            {
+                fmp_com_port = result.str("port");
+            }
 
+            if (regex_search(current_line, result, baudrate_regex))
+            {
+                try
+                {
+                    fmp_baudrate = boost::lexical_cast<int>(result.str("baudrate"));
+                }
+                catch( boost::bad_lexical_cast const& )
+                {
+                    std::cout << "Check the syntax of your config file" << std::endl;
+                }
+            }
         }
     }
 }
@@ -144,7 +159,9 @@ int main(int ac, char* av[])
 {
     try
     {
-        load_xml_settings("settings.xml");
+
+        // get program root
+        programm_root = boost::filesystem::system_complete(av[0]).parent_path();
 
         // Declare the supported options.
         po::options_description desc("Allowed options");
@@ -152,12 +169,26 @@ int main(int ac, char* av[])
         ("help,h", "produce help message")
         ("start_time,s", po::value<string>()->implicit_value(""), "start time")
         ("console,c", po::value<string>()->implicit_value(""), "interactive COM Port mode")
-        ("input,i", po::value<string>()->implicit_value("COM3"), "used com port connection. e.g. COM1 or /dev/ttyS0")
-        ("baudrate,b", po::value<string>()->implicit_value("9600"), "baudrate for com port connection")
+        ("input,i", po::value<string>()->implicit_value(fmp_com_port), "used com port connection. e.g. COM1 or /dev/ttyS0")
+        ("baudrate,b", po::value<string>()->implicit_value(boost::lexical_cast<string>(fmp_baudrate)), "baudrate for com port connection")
+        ("file,f", po::value<string>(), "path to config file")
         ;
         po::variables_map vm;
         po::store(po::parse_command_line(ac, av, desc), vm);
         po::notify(vm);
+
+
+        if (vm.count("file"))
+        {
+            fs::path user_config_file(vm["file"].as<string>());
+            load_xml_settings(user_config_file);
+        }
+        else
+        {
+            load_xml_settings(programm_root/config_file_name);
+        }
+
+
 
         if (vm.count("help"))
         {
@@ -176,30 +207,14 @@ int main(int ac, char* av[])
         {
             fmp_com_port = vm["input"].as<string>();
         }
-        else
-        {
-
-            cout << "COM Port aus xml holen" << endl;
-
-        }
 
         if (vm.count("baudrate"))
         {
-            fmp_baudrate = vm["baudrate"].as<string>();
+            fmp_baudrate = boost::lexical_cast<int>(vm["baudrate"].as<string>());
         }
-        else
-        {
-            cout << "Baudrate aus xml holen" << endl;
-        }
-
-        cout << "Starting with " << fmp_com_port << " on " << fmp_baudrate << endl;
-
 
         if (vm.count("start_time"))
         {
-            fs::path programm_root;
-            fs::path data_path;
-            programm_root = boost::filesystem::system_complete(av[0]).parent_path();
             directory_name = vm["start_time"].as<string>();
             data_path = "data";
             timestamp_dir = programm_root / data_path / directory_name;
@@ -214,8 +229,9 @@ int main(int ac, char* av[])
             return 400;
         }
 
+        cout << "Connection to " << fmp_com_port << " with " << fmp_baudrate << endl;
 
-        CallbackAsyncSerial serial("COM3", 9600);
+        CallbackAsyncSerial serial(fmp_com_port, fmp_baudrate);
         serial.setCallback(received);
         serial.writeString("SAM\r\n");
         int first;
