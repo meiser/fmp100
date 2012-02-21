@@ -18,7 +18,7 @@ Dieser Aufruf erzeugt im Ordner der `fmp100.exe` die Dateien `data/123/123` und 
 ## Verwendete Programme, Bibliotheken usw.
 * [Boost C++ Libraries](http://www.boost.org/ "Boost C++ Libraries")
 * [TinyXML](http://www.grinninglizard.com/tinyxml "TinyXML")
-* [serial-port](http://gitorious.org/serial-port)
+* [serial-port](http://gitorious.org/serial-port "serial-port")
 
 ## Anforderungen
 
