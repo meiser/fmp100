@@ -68,7 +68,7 @@ Die Konfigurationsdatei muss den Namen `config` haben und sich im gleichen Ordne
 Die Reihenfolge von Port- und Baudratenangabe kann beliebig vertauscht werden.
 
 
-### Verwendung der Kommandozeilenarguments `--f`
+### Verwendung des Kommandozeilenarguments `--f`
 
 Mit Hilfe des Kommandozeilenarguments `--f` kann ein individueller Pfad zu einer Konfigurationsdatei angegeben werden (siehe Abschnitt Kommandozeilenargumente).
 Die Struktur der Konfigurationsdatei enspricht dabei der Struktur der Autokonfigurationsdatei.
