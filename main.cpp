@@ -20,7 +20,7 @@
 #include "AsyncSerial.h"
 
 
-
+#define FMP100_VERSION "0.1.0";
 
 namespace po = boost::program_options;
 namespace fs = boost::filesystem;
@@ -41,8 +41,6 @@ int fmp_baudrate = 9600;
 
 
 bool console_mode=false;
-
-
 
 
 // Callback , speichert Daten lokal zwischen
@@ -167,6 +165,7 @@ int main(int ac, char* av[])
         po::options_description desc("Allowed options");
         desc.add_options()
         ("help,h", "produce help message")
+        ("version,v", "program version")
         ("start_time,s", po::value<string>()->implicit_value(""), "start time")
         ("console,c", po::value<string>()->implicit_value(""), "interactive COM Port mode")
         ("input,i", po::value<string>()->implicit_value(fmp_com_port), "used com port connection. e.g. COM1 or /dev/ttyS0")
@@ -178,6 +177,18 @@ int main(int ac, char* av[])
         po::notify(vm);
 
 
+        if (vm.count("version"))
+        {
+            cout << FMP100_VERSION;
+            return 200;
+        }
+
+        if (vm.count("help"))
+        {
+            cout << desc << "\n";
+            return 200;
+        }
+
         if (vm.count("file"))
         {
             fs::path user_config_file(vm["file"].as<string>());
@@ -188,20 +199,11 @@ int main(int ac, char* av[])
             load_xml_settings(programm_root/config_file_name);
         }
 
-
-
-        if (vm.count("help"))
-        {
-            cout << desc << "\n";
-            return 200;
-        }
-
         if (vm.count("console"))
         {
             console();
             return 200;
         }
-
 
         if (vm.count("input"))
         {
