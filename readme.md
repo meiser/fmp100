@@ -2,7 +2,7 @@
 
 ## Idee
 
-Das Programm `fmp100.exe` verbindet sich via USB mit dem Schichtdickenmessgeraet Fischer FMP100 und wandelt dessen Daten in eine XML-Datei um, die im Anschluss von einer Baan-Session eingelesen und verarbeitet werden kann. Durch Verwendung der Boost-Bibliothek (u.a. Asio, Regex, Thread, Filesystem) ist der Programmcode betriebssystemunabhaengig.
+Das Programm `fmp100.exe` verbindet sich ueber USB mit dem Schichtdickenmessgeraet Fischer FMP100 und wandelt dessen Daten in eine XML-Datei um, die im Anschluss von einer Baan-Session eingelesen und verarbeitet werden kann. Durch Verwendung der Boost-Bibliothek (u.a. Asio, Regex, Thread, Filesystem) ist der Programmcode betriebssystemunabhaengig.
 
 ## Nutzung des Programms
 
@@ -10,10 +10,10 @@ Ein Beispielaufruf des Programms kann wie folgt aussehen:
 
 	fmp100.exe --start_time 123
 
-Dieser Aufruf erzeugt im Ordner der `fmp100.exe` die Dateien `data/123/123` und `data/123/messwerte.xml`
+Dieser Aufruf erzeugt im Hauptordner des Programms die Dateien `data/123/123` und `data/123/messwerte.xml`
 
-* Die Datei `123` beinhaltet die vom COM-Port gesendeten Daten des Messgeraetes
-* Die XML-Datei beinhaltet eine aufbereitete XML-Version der COM-Port-Daten
+* Die Datei `123` beinhaltet die gesendeten Daten des Messgeraetes (unveraendert)
+* Die XML-Datei `messwerte.xml` beinhaltet eine aufbereitete XML-Version der COM-Port-Daten
 
 ## Verwendete Programme, Bibliotheken usw.
 * [Boost C++ Libraries](http://www.boost.org/ "Boost C++ Libraries")
@@ -30,7 +30,7 @@ Dieser Aufruf erzeugt im Ordner der `fmp100.exe` die Dateien `data/123/123` und 
 
 Das Programm `fmp100.exe` kann mit folgenden Startparametern ausgefuehrt werden:
 
-* `--help, --h` Listet alle zulaessigen Kommandozeilenargumente und ihre Funktionsbeschreibung ein
+* `--help, --h` Listet alle zulaessigen Kommandozeilenargumente und ihre Funktionsbeschreibung auf
 * `--start_time, --s` Angabe der Startzeit des Programms als Timestamp. Dieser wird von der Baan-Session erzeugt und an das aufrufende Programm uebergeben. Dieser Parameter ist erforderlich.
 * `--console, --c` Startet des Programm im interaktiven Konsolenmodus
 * `--input, --i` Angabe des COM-Ports z.B. --i COM1 oder --i /dev/ttyS0, Standard ist COM1
@@ -44,7 +44,7 @@ Die Rueckantwort des Geraetes wird direkt in der Konsole ausgegeben.
 
 Momentan stehen folgende Befehle zur Verfuegung:
 
-* `VV` Gibt den Namen des Geraetes und die verwendete Firmwareversion aus.
+* `VV` Gibt den Namen des Geraetes und die verwendete Firmwareversion aus
 * `NAMHEX` Angabe des Geraetenamens in Hexadezimalschreibweise
 * `PE` Ausgabe des fuer die Messapplikation konfigurierten Gruppenseparators. Folgende Gruppenseparatoren koennen ueber die COM-Port-Einstellungen des Geraetes eingestellt werden: `GS` (Hex code 0x1d), `*`, `;`, `#`, `:` und `,`
 * `SAM` Gibt alle Daten der aktuellen Messapplikation entsprechend der COM-Port-Einstellungen und der Blockergebnisvorlage aus
@@ -61,21 +61,13 @@ Diese Standardwerte koennen jedoch auf 3 verschiedene Arten ueberschrieben werde
 1. Erstellung einer zusaetzlichen Konfigurationsdatei
 
 Die Konfigurationsdatei muss den Namen `config` haben und sich im gleichen Ordner wie die Datei `fmp100.exe` befinden.
-
-
 	port: COM3
 	baudrate: 115200
-
 Die Reihenfolge von Port- und Baudratenangabe kann beliebig vertauscht werden.
-
 2. Verwendung der Kommandozeilenargumente `--i` und `--b`
-
 Mit Hilfe der Kommandozeilenargumente `--i` und `--b` koennen die Verbindungsparameter des Programms direkt veraendert werden (siehe Abschnitt Kommandozeilenargumente).
-
 3. Angabe eines Pfades zur Konfigurationsdatei
-
 Mit Hilfe des Kommandozeilenarguments `--f` kann ein Pfad zu einer Konfigurationsdatei mit einem beliebigen Dateinamen angegeben werden (siehe Abschnitt Kommandozeilenargumente).
-
 Wenn keine Kommandozeilenargumente angegeben werden bezieht das Programm die Verbindungsdaten aus der Konfigurationsdatei (im Hauptornder bzw. durch Angabe des Pfades der Datei mit `--f`).
 Sollte keine Konfigurationsdatei vorliegen verwendet das Programm die internen Standardwerte (`COM1` mit einer Baudrate von `9600`).
 
