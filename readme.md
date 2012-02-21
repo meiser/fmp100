@@ -3,7 +3,7 @@
 
 ## Idee
 
-Das Programm `fmp100.exe` verbindet sich via USB mit dem Schichtdickenmessgeraet Fischer FMP100 und wandelt dessen Daten in eine XML-Datei um, die von einer aufgerufenen Baan-Session eingelesen und verarbeitet wird. Durch Verwendung der Boost-Bibliothek (u.a. Asio, Regex, Thread, Filesystem) ist der Programmcode weitesgehend systemunabhaengig.
+Das Programm `fmp100.exe` verbindet sich via USB mit dem Schichtdickenmessgeraet Fischer FMP100 und wandelt dessen Daten in eine XML-Datei um, die anschließend von einer aufgerufenen Baan-Session eingelesen und verarbeitet wird. Durch Verwendung der Boost-Bibliothek (u.a. Asio, Regex, Thread, Filesystem) ist der Programmcode weitesgehend betriebssystemunabhaengig.
 
 ## Nutzung des Programms
 
@@ -43,29 +43,37 @@ Die Rueckantwort des Geraetes wird direkt in der Konsole ausgegeben.
 Momentan stehen folgende Befehle zur Verfuegung:
 
 * `VV` Gibt den Namen des Geraetes und die verwendete Firmwareversion aus.
-* [NAMHEX] Angabe des Geraetenamens in Hexadezimalschreibweise
-* [PE] Ausgabe des für die Messapplikation konfigurierten Gruppenseparators. Folgende Gruppenseparatoren koennen ueber die COM-Port-Einstellungen des Geraetes eingestellt werden: GS (Hex code 0x1d), "*", ";", "#", ":" und ","
-* [SAM] Gibt alle Daten der aktuellen Messapplikation entsprechend der COM-Port-Einstellungen und der Blockergebnisvorlage aus
-* [DAT0-DATxxx] Gibt Datum und Uhrzeit der Erstellung eines Messblocks xxx aus. Der erste Block beginnt entsprechend mit DAT0
-* Unbekannte bzw. falsche Steuerbefehle liefern als Antwort ein Fragezeichen zurueck [?]
-* Die Bedeutung folgender Steuerbefehle ist noch nicht bekannt: SL, LSL, USL
-* [exit] Beendigung des Programms
+* `NAMHEX` Angabe des Geraetenamens in Hexadezimalschreibweise
+* `PE` Ausgabe des fuer die Messapplikation konfigurierten Gruppenseparators. Folgende Gruppenseparatoren koennen ueber die COM-Port-Einstellungen des Geraetes eingestellt werden: GS (Hex code 0x1d), "*", ";", "#", ":" und ","
+* `SAM` Gibt alle Daten der aktuellen Messapplikation entsprechend der COM-Port-Einstellungen und der Blockergebnisvorlage aus
+* `DAT0-DATxxx` Gibt Datum und Uhrzeit der Erstellung eines Messblocks xxx aus. Der erste Block beginnt entsprechend mit DAT0
+* Unbekannte bzw. falsche Steuerbefehle liefern als Antwort ein Fragezeichen zurueck (`?`)
+* Die Bedeutung folgender Steuerbefehle ist noch nicht bekannt: `SL`, `LSL`, `USL`
+* `exit` Beendigung des Programms
 
 
 
 ##Konfigurationsdatei
 
-Wird das Programm `fmp100.exe` ohne weitere Kommandozeilenargumente gestartet wird automatisch der COM-Port 1 (COM1) und eine Baudrate von 9600 verwendet. Mit Hilfe der Kommandozeilenargumente `--i` und `--b` können diese in der Konsole verändert werden (siehe Abschnitt Kommandozeilenargumente).
-Zusaetzlich kann über eine Konfigurationsdatei der COM-Port und die Baudrate eingestellt werden.
+Wird `fmp100.exe` ohne weitere Kommandozeilenargumente gestartet verwendet es standardmaeßig COM-Port 1 (`COM1`) und eine Baudrate von `9600`.
+Diese Standardwerte koennen jedoch an 2 Stellen ueberschrieben werden:
 
-Die Konfigurationsdatei muss den Namen `config` haben und sollte folgende Struktur aufweisen:
+
+1. Erstellung einer zusaetzlichen Konfigurationsdatei
+
+Die Konfigurationsdatei muss den Namen `config` haben und sich im gleichen Ornder wie die Datei `fmp100.exe` befinden.
+
 
 	port: COM3
 	baudrate: 115200
 
-Die Reihenfolge von Port- und Baudratenangabe kann vertauscht werden.
-Die Konfigurationsdatei muss sich im selben Ornder wie die Datei `fmp100.exe` befinden.
+Die Reihenfolge von Port- und Baudratenangabe kann beliebig vertauscht werden.
 
+2. Verwendung der Kommandozeilenargumente `--i` und `--b`
+Mit Hilfe der Kommandozeilenargumente `--i` und `--b` koennen die Standardwerte des Programms veraendert werden (siehe Abschnitt Kommandozeilenargumente).
+
+Wenn keine Kommandozeilenargumente angegeben werden bezieht das Programm die Verbindungsdaten aus der Konfigurationsdatei.
+Sollte diese Datei nicht vorliegen, verwendet das Programm die internen Standardwerte (`COM1` mit `9600`).
 
 ## XML-Struktur
 
