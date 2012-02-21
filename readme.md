@@ -3,7 +3,7 @@
 
 ## Idee
 
-Das Programm `fmp100.exe` verbindet sich via USB mit dem Schichtdickenmessgeraet Fischer FMP100 und wandelt dessen Daten in eine XML-Datei um, die anschlieﬂend von einer aufgerufenen Baan-Session eingelesen und verarbeitet wird. Durch Verwendung der Boost-Bibliothek (u.a. Asio, Regex, Thread, Filesystem) ist der Programmcode weitesgehend betriebssystemunabhaengig.
+Das Programm `fmp100.exe` verbindet sich via USB mit dem Schichtdickenmessgeraet Fischer FMP100 und wandelt dessen Daten in eine XML-Datei um, die im Anschluss von einer Baan-Session eingelesen und verarbeitet werden kann. Durch Verwendung der Boost-Bibliothek (u.a. Asio, Regex, Thread, Filesystem) ist der Programmcode betriebssystemunabhaengig.
 
 ## Nutzung des Programms
 
