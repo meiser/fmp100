@@ -45,7 +45,7 @@ Momentan stehen folgende Befehle zur Verfuegung:
 
 * `VV` Gibt den Namen des Geraetes und die verwendete Firmwareversion aus.
 * `NAMHEX` Angabe des Geraetenamens in Hexadezimalschreibweise
-* `PE` Ausgabe des fuer die Messapplikation konfigurierten Gruppenseparators. Folgende Gruppenseparatoren koennen ueber die COM-Port-Einstellungen des Geraetes eingestellt werden: GS (Hex code 0x1d), "*", ";", "#", ":" und ","
+* `PE` Ausgabe des fuer die Messapplikation konfigurierten Gruppenseparators. Folgende Gruppenseparatoren koennen ueber die COM-Port-Einstellungen des Geraetes eingestellt werden: `GS` (Hex code 0x1d), `*`, `;`, `#`, `:` und `,`
 * `SAM` Gibt alle Daten der aktuellen Messapplikation entsprechend der COM-Port-Einstellungen und der Blockergebnisvorlage aus
 * `DAT0-DATxxx` Gibt Datum und Uhrzeit der Erstellung eines Messblocks xxx aus. Der erste Block beginnt entsprechend mit DAT0
 * Unbekannte bzw. falsche Steuerbefehle liefern als Antwort ein Fragezeichen zurueck (`?`)
