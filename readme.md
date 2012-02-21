@@ -1,6 +1,5 @@
 # __Programm zur Ansteuerung des Fischer FMP100 in einer Baan-Session (Infor ERP)__
 
-
 ## Idee
 
 Das Programm `fmp100.exe` verbindet sich via USB mit dem Schichtdickenmessgeraet Fischer FMP100 und wandelt dessen Daten in eine XML-Datei um, die im Anschluss von einer Baan-Session eingelesen und verarbeitet werden kann. Durch Verwendung der Boost-Bibliothek (u.a. Asio, Regex, Thread, Filesystem) ist der Programmcode betriebssystemunabhaengig.
@@ -16,19 +15,16 @@ Dieser Aufruf erzeugt im Ordner der `fmp100.exe` die Dateien `data/123/123` und 
 * Die Datei `123` beinhaltet die vom COM-Port gesendeten Daten des Messgeraetes
 * Die XML-Datei beinhaltet eine aufbereitete XML-Version der COM-Port-Daten
 
-
-
-## Anforderungen
-
-* Fischer FMP100 USB Treiber (wird auf Mini CD mitgeliefert)
-* Windows XP, Windows Vista oder Windows 7
-* Bearbeitung der Projektdatei mit Codeblocks (IDE) und Kompilierung mit der C++ Boost Bibliothek
-
-
 ## Verwendete Programme, Bibliotheken usw.
 * [Boost C++ Libraries](http://www.boost.org/ "Boost C++ Libraries")
 * [TinyXML](http://www.grinninglizard.com/tinyxml "TinyXML")
 * [serial-port](http://gitorious.org/serial-port)
+
+## Anforderungen
+
+* Fischer FMP100 USB Treiber auf Mini CD (ist dem Messgeraet beigelegt)
+* Windows XP, Windows Vista oder Windows 7
+* Bearbeitung der Projektdatei mit Codeblocks (IDE) und Kompilierung mit der C++ Boost Bibliothek
 
 ## Kommandozeilenargumente
 
@@ -57,13 +53,10 @@ Momentan stehen folgende Befehle zur Verfuegung:
 * Die Bedeutung folgender Steuerbefehle ist noch nicht bekannt: `SL`, `LSL`, `USL`
 * `exit` Beendigung des Programms
 
-
-
 ##Konfigurationsdatei
 
 Wird `fmp100.exe` ohne weitere Kommandozeilenargumente gestartet verwendet es die Standardwerte COM-Port 1 (`COM1`) und eine Baudrate von `9600`.
 Diese Standardwerte koennen jedoch auf 3 verschiedene Arten ueberschrieben werden:
-
 
 1. Erstellung einer zusaetzlichen Konfigurationsdatei
 
@@ -83,8 +76,6 @@ Mit Hilfe der Kommandozeilenargumente `--i` und `--b` koennen die Verbindungspar
 
 Mit Hilfe des Kommandozeilenarguments `--f` kann ein Pfad zu einer Konfigurationsdatei mit einem beliebigen Dateinamen angegeben werden (siehe Abschnitt Kommandozeilenargumente).
 
-
-
 Wenn keine Kommandozeilenargumente angegeben werden bezieht das Programm die Verbindungsdaten aus der Konfigurationsdatei (im Hauptornder bzw. durch Angabe des Pfades der Datei mit `--f`).
 Sollte keine Konfigurationsdatei vorliegen verwendet das Programm die internen Standardwerte (`COM1` mit einer Baudrate von `9600`).
 
@@ -95,7 +86,6 @@ Das Programm `fmp100.exe` erzeugt aus der aktuell gewaehlten Messapplikation ein
 1. Das Element "application" ist das Wurzelelement der XML-Datei und beinhaltet alle relevanten Daten zur Messapplikation (Name der Messanwendung, obere und untere Toleranzgrenze sowie die verwendete Messeinheit)
 2. Das Element "block" beinhaltet alle Daten fuer die Beschreibung eines Messblockes (u.a. Auftragsnummer, Blockkommentar, Anzahl der Messwerte und Zeitpunkt der Erstellung zerlegt in Tag, Monat, Jahr, Stunden und Minuten)
 3. Das Element "value" beinhaltet den Zahlenwert des Messwertes
-
 
 Anmerkung: Auftragsnummer und Kommentar sind nicht zwingend erforderlich.
 
@@ -149,4 +139,4 @@ Die folgende Datei zeigt eine Beispielanwendung  "Farbschichtmessung" mit 3 Mess
 ## Kompilierung
 
 Das `fmp100.exe` Repository beinhaltet vorkompilierte Versionen der Anwendungen im bin-Ordner. Dort kann zwischen einer Debug und Release-Version entschieden werden.
-Die verwendete Baan-Session greift dabei auf die `fmp100.exe` der Release-Version zurueck (`fmp100/bin/Release/fmp100.exe`)
+Die verwendete Baan-Session greift dabei auf die Datei `fmp100.exe` der Release-Version zurueck (`fmp100/bin/Release/fmp100.exe`)
