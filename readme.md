@@ -144,3 +144,4 @@ Die folgende Datei zeigt eine Beispielanwendung  "Farbschichtmessung" mit 3 Mess
 ## Kompilierung
 
 Das `fmp100.exe` Repository beinhaltet vorkompilierte Versionen der Anwendungen im bin-Ordner. Dort kann zwischen einer Debug und Release-Version entschieden werden.
+Die verwendete Baan-Session greift dabei auf die `fmp100.exe` der Release-Version zurueck (`fmp100/bin/Release/fmp100.exe`)
