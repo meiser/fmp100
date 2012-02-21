@@ -56,7 +56,7 @@ Momentan stehen folgende Befehle zur Verfuegung:
 
 ##Konfigurationsdatei
 
-Wird `fmp100.exe` ohne weitere Kommandozeilenargumente gestartet verwendet es standardmaeßig COM-Port 1 (`COM1`) und eine Baudrate von `9600`.
+Wird `fmp100.exe` ohne weitere Kommandozeilenargumente gestartet verwendet es die Standardwerte COM-Port 1 (`COM1`) und eine Baudrate von `9600`.
 Diese Standardwerte koennen jedoch auf 3 verschiedene Arten ueberschrieben werden:
 
 
@@ -76,7 +76,7 @@ Mit Hilfe der Kommandozeilenargumente `--i` und `--b` koennen die Verbindungspar
 
 3. Angabe eines Pfades zur Konfigurationsdatei
 
-Mit Hilfe des Kommandozeilenarguments `--f` kann ein Pfad zu einer Konfigurationsdatei angegeben werden (siehe Abschnitt Kommandozeilenargumente).
+Mit Hilfe des Kommandozeilenarguments `--f` kann ein Pfad zu einer Konfigurationsdatei mit einem beliebigen Dateinamen angegeben werden (siehe Abschnitt Kommandozeilenargumente).
 
 
 
