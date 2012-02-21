@@ -62,8 +62,8 @@ Zur Konfiguration der COM-Port Verbindungsdaten bietet `fmp100.exe` verschiedene
 
 Die Konfigurationsdatei muss den Namen `config` haben und sich im gleichen Ordner wie die Datei `fmp100.exe` befinden. Der Aufbau der Datei sieht dabei folgende Struktur vor:
 	
-	port: COM3
-	baudrate: 115200
+	port:COM3
+	baudrate:115200
 
 Die Reihenfolge von Port- und Baudratenangabe kann beliebig vertauscht werden.
 
