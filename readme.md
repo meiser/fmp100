@@ -25,6 +25,11 @@ Dieser Aufruf erzeugt im Ordner der `fmp100.exe` die Dateien `data/123/123` und 
 * Bearbeitung der Projektdatei mit Codeblocks (IDE) und Kompilierung mit der C++ Boost Bibliothek
 
 
+## Verwendete Programme, Bibliotheken usw.
+* [Boost C++ Libraries](http://www.boost.org/ "Boost C++ Libraries")
+* [TinyXML](http://www.grinninglizard.com/tinyxml "TinyXML")
+* [serial-port](http://gitorious.org/serial-port)
+
 ## Kommandozeilenargumente
 
 Das Programm `fmp100.exe` kann mit folgenden Startparametern ausgefuehrt werden:
@@ -62,7 +67,7 @@ Diese Standardwerte koennen jedoch auf 3 verschiedene Arten ueberschrieben werde
 
 1. Erstellung einer zusaetzlichen Konfigurationsdatei
 
-Die Konfigurationsdatei muss den Namen `config` haben und sich im gleichen Ornder wie die Datei `fmp100.exe` befinden.
+Die Konfigurationsdatei muss den Namen `config` haben und sich im gleichen Ordner wie die Datei `fmp100.exe` befinden.
 
 
 	port: COM3
