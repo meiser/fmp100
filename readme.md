@@ -33,7 +33,7 @@ Das Programm `fmp100.exe` kann mit folgenden Startparametern ausgefuehrt werden:
 * `--help, --h` Listet alle zulaessigen Kommandozeilenargumente und ihre Funktionsbeschreibung auf
 * `--start_time, --s` Angabe der Startzeit des Programms als Timestamp. Dieser wird von der Baan-Session erzeugt und an das aufrufende Programm uebergeben. Dieser Parameter ist erforderlich.
 * `--console, --c` Startet des Programm im interaktiven Konsolenmodus
-* `--input, --i` Angabe des COM-Ports z.B. --i COM1 oder --i /dev/ttyS0, Standard ist COM1
+* `--port, --p` Angabe des COM-Ports z.B. --p COM1 oder --p /dev/ttyS0, Standard ist COM1
 * `--baudrate, --b` Angabe der Uebertragungsgeschwindigkeit des COM-Ports, Standard ist 9600
 * `--file, --f` Angabe des Pfades zu einer Konfigurationsdatei
 
@@ -73,15 +73,15 @@ Die Reihenfolge von Port- und Baudratenangabe kann beliebig vertauscht werden.
 Mit Hilfe des Kommandozeilenarguments `--f` kann ein individueller Pfad zu einer Konfigurationsdatei angegeben werden (siehe Abschnitt Kommandozeilenargumente).
 Die Struktur der Konfigurationsdatei enspricht dabei der Struktur der Autokonfigurationsdatei.
 
-### Verwendung der Kommandozeilenargumente `--i` und `--b`
+### Verwendung der Kommandozeilenargumente `--p` und `--b`
 
-Mit Hilfe der Kommandozeilenargumente `--i` und `--b` koennen die Verbindungsparameter des Programms direkt beim Aufruf angegeben werden (siehe Abschnitt Kommandozeilenargumente).
+Mit Hilfe der Kommandozeilenargumente `--p` und `--b` koennen die Verbindungsparameter des Programms direkt beim Aufruf angegeben werden (siehe Abschnitt Kommandozeilenargumente).
 
 
 
 ### ANMERKUNGEN
 
-Wenn die Kommandozeilenargumente `--i` oder `--b` nicht verwendet werden bezieht das Programm die Verbindungsdaten aus der Konfigurationsdatei. Dabei hat die Konfigurationsdatei, die mit dem Kommandozeilenargument `--f` angegeben wurde Vorrang vor der Autokonfigurationsdatei im Hauptornder des Programms.
+Wenn die Kommandozeilenargumente `--p` oder `--b` nicht verwendet werden bezieht das Programm die Verbindungsdaten aus der Konfigurationsdatei. Dabei hat die Konfigurationsdatei, die mit dem Kommandozeilenargument `--f` angegeben wurde Vorrang vor der Autokonfigurationsdatei im Hauptornder des Programms.
 Existiert keine Autokonfigurationsdatei greifen die Standardeinstellungen (`COM1` mit einer Baudrate von `9600`)
 
 ## XML-Struktur
