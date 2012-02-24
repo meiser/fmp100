@@ -20,7 +20,7 @@
 #include "AsyncSerial.h"
 
 
-#define FMP100_VERSION "0.3.0";
+#define FMP100_VERSION "0.4.0";
 
 namespace po = boost::program_options;
 namespace fs = boost::filesystem;
