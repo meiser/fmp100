@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Release" />
+	<File name="AsyncSerial.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="6401" topLine="273" />
+	</File>
+	<File name="AsyncSerial.h" open="0" top="0" tabpos="0">
+		<Cursor position="3243" topLine="73" />
+	</File>
+	<File name="main.cpp" open="1" top="1" tabpos="0">
+		<Cursor position="2758" topLine="95" />
+	</File>
+	<File name="Z:\tinyxml\tinyxml.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="20003" topLine="949" />
+	</File>
+	<File name="Z:\tinyxml\tinyxml.h" open="0" top="0" tabpos="3">
+		<Cursor position="49987" topLine="1388" />
+	</File>
+	<File name="Z:\tinyxml\tinyxmlparser.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="16426" topLine="694" />
+	</File>
+</CodeBlocks_layout_file>

@@ -28,17 +28,25 @@ namespace pt = boost::posix_time;
 using namespace std;
 
 
-// globale Ordner timestamp_dir and diretory_name, created in main() on startup;
-
-fs::path timestamp_dir;
-fs::path directory_name;
+// program root
 fs::path programm_root;
-fs::path config_file_name("config");
+
+// directory name is an timestamp, only integer allowed
+fs::path directory_name("last");
+
+// path to com port file created by fmp100
+fs::path com_port_file_path;
+
+
+// main folder name for all files created by fmp100
 fs::path data_path("data");
 
+// name of config file for com port settings
+fs::path config_file_name("config");
+
+// default com port and baudrate
 string fmp_com_port = "COM1";
 int fmp_baudrate = 9600;
-
 
 bool console_mode=false;
 
@@ -47,7 +55,7 @@ bool console_mode=false;
 void received(const char *data, unsigned int len)
 {
     vector<char> v(data,data+len);
-    fs::ofstream outfile(timestamp_dir/directory_name, ios_base::app);
+    fs::ofstream outfile(com_port_file_path, ios_base::app);
     for(unsigned int i=0; i<v.size(); i++)
     {
         // Enfernung von Tabulatoren und Zeilenvorschub
@@ -166,9 +174,9 @@ int main(int ac, char* av[])
         desc.add_options()
         ("help,h", "produce help message")
         ("version,v", "program version")
-        ("start_time,s", po::value<string>()->implicit_value(""), "start time")
+        ("start_time,s", po::value<string>()->implicit_value("last"), "timestamp for directory_name")
         ("console,c", po::value<string>()->implicit_value(""), "interactive COM Port mode")
-        ("input,i", po::value<string>()->implicit_value(fmp_com_port), "used com port connection. e.g. COM1 or /dev/ttyS0")
+        ("port,p", po::value<string>()->implicit_value(fmp_com_port), "used com port connection. e.g. COM1 or /dev/ttyS0")
         ("baudrate,b", po::value<string>()->implicit_value(boost::lexical_cast<string>(fmp_baudrate)), "baudrate for com port connection")
         ("file,f", po::value<string>(), "path to config file")
         ;
@@ -205,9 +213,9 @@ int main(int ac, char* av[])
             return 200;
         }
 
-        if (vm.count("input"))
+        if (vm.count("port"))
         {
-            fmp_com_port = vm["input"].as<string>();
+            fmp_com_port = vm["port"].as<string>();
         }
 
         if (vm.count("baudrate"))
@@ -218,18 +226,17 @@ int main(int ac, char* av[])
         if (vm.count("start_time"))
         {
             directory_name = vm["start_time"].as<string>();
-            data_path = "data";
-            timestamp_dir = programm_root / data_path / directory_name;
-            fs::create_directories(timestamp_dir);
-            fs::fstream textfile;
-            textfile.open(timestamp_dir / directory_name, ios_base::out);
-            textfile.close();
+
         }
-        else
-        {
-            cout << "Zeitstring muss angegeben werden: --start_time <int> \n";
-            return 400;
-        }
+
+        com_port_file_path = programm_root / data_path / directory_name / directory_name;
+        fs::create_directories(programm_root / data_path / directory_name);
+        fs::fstream textfile;
+        textfile.open(com_port_file_path, ios_base::out);
+        textfile.close();
+
+
+
 
         cout << "Connection to " << fmp_com_port << " with " << fmp_baudrate << endl;
 
@@ -241,9 +248,9 @@ int main(int ac, char* av[])
         bool still_changing = true;
         while (still_changing)
         {
-            first = fs::file_size(timestamp_dir / directory_name);
+            first = fs::file_size(com_port_file_path);
             boost::this_thread::sleep(pt::milliseconds(1000));
-            second = fs::file_size(timestamp_dir / directory_name);
+            second = fs::file_size(com_port_file_path);
             if (second == first)
             {
                 still_changing = false;
@@ -315,7 +322,7 @@ int main(int ac, char* av[])
         //Ergebnis Regex
         boost::smatch result;
         //Datei
-        fs::ifstream fin(timestamp_dir / directory_name);
+        fs::ifstream fin(programm_root / data_path / directory_name / directory_name);
 
         //Durchsuchung Datei pro Zeile und Extrahierung der Blockdaten
         while(getline(fin, current_line))
@@ -415,7 +422,7 @@ int main(int ac, char* av[])
         }
         cout << "Anzahl Bloecke: " << amount_blocks << endl;
         fs::path xml_file_name = "messdaten.xml";
-        fs::path full_xml_path = timestamp_dir / xml_file_name;
+        fs::path full_xml_path = programm_root / data_path / directory_name / xml_file_name;
         doc.SaveFile(full_xml_path.string().c_str());
 
         return 1;
@@ -433,7 +440,12 @@ int main(int ac, char* av[])
     }
     catch(boost::program_options::invalid_command_line_syntax &e)
     {
-        cout<<"Bitte Argument angeben: "<<e.what()<<endl;
+        cout << "Bitte Argument angeben: "<< e.what() << endl;
+        return 400;
+    }
+    catch(boost::bad_any_cast)
+    {
+        cout << "Bitte Parameter ueberpruefen. Tippe --h fuer Hilfe " << endl;
         return 400;
     }
 }
